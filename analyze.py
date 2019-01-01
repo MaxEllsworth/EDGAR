@@ -32,7 +32,10 @@ def bulkMax(directory, attribute):
 	for a in assets:
 		e = xml.etree.ElementTree.parse(directory + "/" + a).getroot()
 		asset = getAttributes(e)
-		entries[float(asset[attribute])] = asset["assetNumber"]
+		try:
+			entries[float(asset[attribute])] = asset["assetNumber"]
+		except:
+			entries[0] = asset["assetNumber"]
 	keys = entries.keys()
 	maximum = max(keys)
 	return entries[maximum], maximum
@@ -43,7 +46,11 @@ def bulkMin(directory, attribute):
 	for a in assets:
 		e = xml.etree.ElementTree.parse(directory + "/" + a).getroot()
 		asset = getAttributes(e)
-		entries[float(asset[attribute])] = asset["assetNumber"]
+		try:
+			entries[float(asset[attribute])] = asset["assetNumber"]
+		except:
+			entries[0] = asset["assetNumber"]
+
 	keys = entries.keys()
 	minimum = min(keys)
 	return entries[minimum], minimum
@@ -64,7 +71,7 @@ def fixNames(directory):
 
 if __name__ == "__main__":
 
-	maxLoanAmountAsset, maxLoanAmount = bulkMax("ally/", "originalInterestRatePercentage")
+	maxLoanAmountAsset, maxLoanAmount = bulkMax("ally/", "repossessedProceedsAmount")
 	print(maxLoanAmountAsset)
 	print(maxLoanAmount)
 	#e = xml.etree.ElementTree.parse("untitled.xml").getroot()
