@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<assets>
+    <assetTypeNumber>Sponsor Assigned</assetTypeNumber>
+    <assetNumber>21090771</assetNumber>
+    <reportingPeriodBeginningDate>11-01-2018</reportingPeriodBeginningDate>
+    <reportingPeriodEndingDate>11-30-2018</reportingPeriodEndingDate>
+    <originatorName>Ally Bank</originatorName>
+    <originationDate>04/2017</originationDate>
+    <originalLoanAmount>19045.06</originalLoanAmount>
+    <originalLoanTerm>77</originalLoanTerm>
+    <loanMaturityDate>08/2023</loanMaturityDate>
+    <originalInterestRatePercentage>0.0999</originalInterestRatePercentage>
+    <interestCalculationTypeCode>1</interestCalculationTypeCode>
+    <originalInterestRateTypeCode>1</originalInterestRateTypeCode>
+    <originalFirstPaymentDate>06/2017</originalFirstPaymentDate>
+    <underwritingIndicator>true</underwritingIndicator>
+    <gracePeriodNumber>2</gracePeriodNumber>
+    <paymentTypeCode>2</paymentTypeCode>
+    <subvented>0</subvented>
+    <vehicleManufacturerName>NISSAN</vehicleManufacturerName>
+    <vehicleModelName>Altima                        </vehicleModelName>
+    <vehicleNewUsedCode>2</vehicleNewUsedCode>
+    <vehicleModelYear>2013</vehicleModelYear>
+    <vehicleTypeCode>1</vehicleTypeCode>
+    <vehicleValueAmount>12975.00</vehicleValueAmount>
+    <vehicleValueSourceCode>98</vehicleValueSourceCode>
+    <obligorCreditScoreType>Consumer Bureau</obligorCreditScoreType>
+    <obligorCreditScore>671</obligorCreditScore>
+    <obligorIncomeVerificationLevelCode>2</obligorIncomeVerificationLevelCode>
+    <obligorEmploymentVerificationCode>2</obligorEmploymentVerificationCode>
+    <coObligorIndicator>true</coObligorIndicator>
+    <paymentToIncomePercentage>0.0635</paymentToIncomePercentage>
+    <obligorGeographicLocation>PA</obligorGeographicLocation>
+    <assetAddedIndicator>false</assetAddedIndicator>
+    <remainingTermToMaturityNumber>57</remainingTermToMaturityNumber>
+    <servicingAdvanceMethodCode>1</servicingAdvanceMethodCode>
+    <reportingPeriodBeginningLoanBalanceAmount>16499.84</reportingPeriodBeginningLoanBalanceAmount>
+    <nextReportingPeriodPaymentAmountDue>1004.03</nextReportingPeriodPaymentAmountDue>
+    <reportingPeriodInterestRatePercentage>0.0999</reportingPeriodInterestRatePercentage>
+    <nextInterestRatePercentage>0.0999</nextInterestRatePercentage>
+    <servicingFeePercentage>0.0100</servicingFeePercentage>
+    <otherAssessedUncollectedServicerFeeAmount>68.29</otherAssessedUncollectedServicerFeeAmount>
+    <scheduledInterestAmount>133.72</scheduledInterestAmount>
+    <scheduledPrincipalAmount>210.11</scheduledPrincipalAmount>
+    <otherPrincipalAdjustmentAmount>0.00</otherPrincipalAdjustmentAmount>
+    <reportingPeriodActualEndBalanceAmount>16232.09</reportingPeriodActualEndBalanceAmount>
+    <reportingPeriodScheduledPaymentAmount>343.83</reportingPeriodScheduledPaymentAmount>
+    <totalActualAmountPaid>340.00</totalActualAmountPaid>
+    <actualInterestCollectedAmount>72.25</actualInterestCollectedAmount>
+    <actualPrincipalCollectedAmount>267.75</actualPrincipalCollectedAmount>
+    <actualOtherCollectedAmount>0.00</actualOtherCollectedAmount>
+    <interestPaidThroughDate>11-08-2018</interestPaidThroughDate>
+    <currentDelinquencyStatus>48</currentDelinquencyStatus>
+    <primaryLoanServicerName>Ally Bank</primaryLoanServicerName>
+    <assetSubjectDemandIndicator>false</assetSubjectDemandIndicator>
+    <repossessedIndicator>false</repossessedIndicator>
+    <repossessedProceedsAmount>0.00</repossessedProceedsAmount>
+  </assets>
