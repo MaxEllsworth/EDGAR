@@ -18,6 +18,7 @@ class bcolors:
 assetDirectory = "ally/"
 csvDirectory = "csv/"
 statsDirectory = "stats/"
+graphDirectory = "graphs/"
 
 class loan():
 	def __init__(self, assetnumber = "", irp = ""):
@@ -135,8 +136,8 @@ def plotRegression(x, y):
 	x_title = x
 	y_title = y
 
-	x = numpy.genfromtxt(open(csvDirectory + x, "rb"), delimiter=",")
-	y = numpy.genfromtxt(open(csvDirectory + y, "rb"), delimiter=",")
+	x = numpy.genfromtxt(open(csvDirectory + x + ".csv", "rb"), delimiter=",")
+	y = numpy.genfromtxt(open(csvDirectory + y + ".csv", "rb"), delimiter=",")
 
 	x = fixNan(x)
 	y = fixNan(y)
@@ -147,18 +148,19 @@ def plotRegression(x, y):
 	plt.plot(x,y, 'yo', x, fit_fn(x), '--k')
 	plt.xlim(0, x.max())
 
-	plt.suptitle("Linear Regression", fontsize = 40)
-	plt.xlabel(x_title, fontsize=26)
-	plt.ylabel(y_title, fontsize=26)
+	title = "Linear Regression"
 	
-	plt.ylim(0, y.max())
-	plt.show()
+	plt.suptitle(title)
+	plt.xlabel(x_title, fontsize=18)
+	plt.ylabel(y_title, fontsize=18)
 
+	plt.ylim(0, y.max())
+	plt.savefig(graphDirectory + title + ".png", aspect="auto")
 
 
 if __name__ == "__main__":
-	x = "obligorCreditScore.csv"
-	y = "originalInterestRatePercentage.csv"
+	x = "obligorCreditScore"
+	y = "originalInterestRatePercentage"
 	plotRegression(x,y)
 
 '''
