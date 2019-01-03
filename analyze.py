@@ -3,6 +3,9 @@
 import xml.etree.ElementTree
 import os
 
+assetDirectory = "ally/"
+csvOutputDirectory = "csv/"
+
 class loan():
 	def __init__(self, assetnumber = "", irp = ""):
 		self.assetnumber = assetnumber
@@ -19,11 +22,11 @@ def getAttributes(e):
 	return stock
 
 def selectAttributes(stock, attributes):
+	values = []
 	for key in stock:
-		print(key)
 		if key in attributes:
-			print(key + " : " + stock[value])
-
+			values.append(stock[value])
+	return value
 
 
 def bulkMax(directory, attribute):
@@ -69,13 +72,30 @@ def fixNames(directory):
 		f.close()
 		os.remove(directory + "/" + a)
 
-if __name__ == "__main__":
+def csvAllAssets():
+	for f in os.listdir(assetDirectory):
+		stock = xml.etree.ElementTree.parse(assetDirectory + f).getroot()
+		stock = getAttributes(stock)
+		for k in stock.keys():
+			dataFile = csvOutputDirectory + k + ".csv"  
+			if not os.path.exists(dataFile):
+				file = open(dataFile, "w+")
+				file.close()
+			file = open(dataFile, "a")
+			file.write(stock[k] + ",")
+			file.close()
 
+
+
+if __name__ == "__main__":
+		
+
+'''
 	maxLoanAmountAsset, maxLoanAmount = bulkMax("ally/", "repossessedProceedsAmount")
 	print(maxLoanAmountAsset)
 	print(maxLoanAmount)
 	#e = xml.etree.ElementTree.parse("untitled.xml").getroot()
-
+'''
 '''	stock = getAttributes(e[0])
 	attributes = ["originalInterestRatePercentage", "obligorCreditScore", 
 	"obligorIncomeVerificationLevelCode","obligorEmploymentVerificationCode",
