@@ -3,6 +3,17 @@
 import xml.etree.ElementTree
 import os
 import numpy
+import matplotlib.pyplot as plt
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 assetDirectory = "ally/"
 csvDirectory = "csv/"
@@ -74,6 +85,14 @@ def fixNames(directory):
 		f.close()
 		os.remove(directory + "/" + a)
 
+def prepDir(directory):
+	if os.path.exists(directory):
+		print(directory + " exists ...")
+		if input((bcolors.WARNING + "Do you want to erase and recreate " + directory + "? [Y/n]: " + bcolors.ENDC)).split()[0].lower() == 'y':
+			os.remove(directory)
+			os.mkdir(directory)
+
+
 def csvAllAssets():
 	for f in os.listdir(assetDirectory):
 		stock = xml.etree.ElementTree.parse(assetDirectory + f).getroot()
@@ -90,6 +109,7 @@ def csvAllAssets():
 
 def computeStats():
 	# max, min standard deviation, median, mean
+	prepDir(statsDirectory)
 	for csvFile in os.listdir(csvDirectory):
 		v = numpy.genfromtxt(open(csvDirectory + csvFile, "rb"), delimiter=",")
 		v = v[~numpy.isnan(v)]
@@ -105,9 +125,31 @@ def computeStats():
 		f.writelines(stats)
 		f.close()
 
+def fixNan(array):
+	new = []
+	array = numpy.nan_to_num(array)
+	return array
+
+
+def plotRegression(x, y):
+	x = numpy.genfromtxt(open(csvDirectory + x, "rb"), delimiter=",")
+	y = numpy.genfromtxt(open(csvDirectory + y, "rb"), delimiter=",")
+
+	x = fixNan(x)
+	y = fixNan(y)
+
+	fit = numpy.polyfit(x,y,1)
+	fit_fn = numpy.poly1d(fit)
+
+	plt.plot(x,y, 'yo', x, fit_fn(x), '--k')
+	plt.xlim(0, x.max())
+	plt.ylim(0, y.max())
+	plt.show()
 
 if __name__ == "__main__":
-	computeStats()
+	x = "obligorCreditScore.csv"
+	y = "originalInterestRatePercentage.csv"
+	plotRegression(x,y)
 
 '''
 	maxLoanAmountAsset, maxLoanAmount = bulkMax("ally/", "repossessedProceedsAmount")
