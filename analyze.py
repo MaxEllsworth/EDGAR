@@ -148,7 +148,7 @@ def plotRegression(x, y):
 	plt.plot(x,y, 'yo', x, fit_fn(x), '--k')
 	plt.xlim(0, x.max())
 
-	title = "Linear Regression"
+	title = "Linear Regression 2"
 	
 	plt.suptitle(title)
 	plt.xlabel(x_title, fontsize=18)
@@ -160,7 +160,7 @@ def plotRegression(x, y):
 
 if __name__ == "__main__":
 	x = "obligorCreditScore"
-	y = "originalInterestRatePercentage"
+	y = "originalLoanAmount"
 	plotRegression(x,y)
 
 '''
