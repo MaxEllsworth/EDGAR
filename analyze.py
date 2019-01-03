@@ -132,6 +132,9 @@ def fixNan(array):
 
 
 def plotRegression(x, y):
+	x_title = x
+	y_title = y
+
 	x = numpy.genfromtxt(open(csvDirectory + x, "rb"), delimiter=",")
 	y = numpy.genfromtxt(open(csvDirectory + y, "rb"), delimiter=",")
 
@@ -143,8 +146,15 @@ def plotRegression(x, y):
 
 	plt.plot(x,y, 'yo', x, fit_fn(x), '--k')
 	plt.xlim(0, x.max())
+
+	plt.suptitle("Linear Regression", fontsize = 40)
+	plt.xlabel(x_title, fontsize=26)
+	plt.ylabel(y_title, fontsize=26)
+	
 	plt.ylim(0, y.max())
 	plt.show()
+
+
 
 if __name__ == "__main__":
 	x = "obligorCreditScore.csv"
