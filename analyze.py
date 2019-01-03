@@ -2,9 +2,11 @@
 
 import xml.etree.ElementTree
 import os
+import numpy
 
 assetDirectory = "ally/"
-csvOutputDirectory = "csv/"
+csvDirectory = "csv/"
+statsDirectory = "stats/"
 
 class loan():
 	def __init__(self, assetnumber = "", irp = ""):
@@ -77,7 +79,7 @@ def csvAllAssets():
 		stock = xml.etree.ElementTree.parse(assetDirectory + f).getroot()
 		stock = getAttributes(stock)
 		for k in stock.keys():
-			dataFile = csvOutputDirectory + k + ".csv"  
+			dataFile = csvDirectory + k + ".csv"  
 			if not os.path.exists(dataFile):
 				file = open(dataFile, "w+")
 				file.close()
@@ -86,9 +88,25 @@ def csvAllAssets():
 			file.close()
 
 
+def computeStats():
+	# max, min standard deviation, median, mean
+	for csvFile in os.listdir(csvDirectory):
+		v = numpy.genfromtxt(open(csvDirectory + csvFile, "rb"), delimiter=",")[:-1]
+	
+		f = open(statsDirectory + csvFile.split('.')[0] + "-stats.txt", "w+")
+
+		stats = ["MAX: " + str(v.max()) + '\n',
+			"MIN: " + str(v.min()) + '\n',
+			"STDEV: " + str(v.std()) + '\n',
+			"MEDIAN: " + str(numpy.median(v)) + '\n',
+			"MEAN: " + str(v.mean())]
+
+		f.writelines(stats)
+		f.close()
+
 
 if __name__ == "__main__":
-		
+	computeStats()
 
 '''
 	maxLoanAmountAsset, maxLoanAmount = bulkMax("ally/", "repossessedProceedsAmount")
