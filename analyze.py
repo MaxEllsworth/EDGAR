@@ -91,16 +91,17 @@ def csvAllAssets():
 def computeStats():
 	# max, min standard deviation, median, mean
 	for csvFile in os.listdir(csvDirectory):
-		v = numpy.genfromtxt(open(csvDirectory + csvFile, "rb"), delimiter=",")[:-1]
-	
+		v = numpy.genfromtxt(open(csvDirectory + csvFile, "rb"), delimiter=",")
+		v = v[~numpy.isnan(v)]
 		f = open(statsDirectory + csvFile.split('.')[0] + "-stats.txt", "w+")
-
-		stats = ["MAX: " + str(v.max()) + '\n',
-			"MIN: " + str(v.min()) + '\n',
-			"STDEV: " + str(v.std()) + '\n',
-			"MEDIAN: " + str(numpy.median(v)) + '\n',
-			"MEAN: " + str(v.mean())]
-
+		try:
+			stats = ["MAX: " + str(v.max()) + '\n',
+				"MIN: " + str(v.min()) + '\n',
+				"STDEV: " + str(v.std()) + '\n',
+				"MEDIAN: " + str(numpy.median(v)) + '\n',
+				"MEAN: " + str(v.mean())]
+		except Exception as e:
+			stats = ["FAILED: ", str(e)]	
 		f.writelines(stats)
 		f.close()
 
