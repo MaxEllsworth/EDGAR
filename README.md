@@ -1,11 +1,19 @@
-# Umbrosus 
-Welcome to Umbrosus. Umbrosus is a framework for analyzing asset (loan) datasets from provided by the Securities and Exchange Commission EDGAR database.
+# Table of Contents
+- [Introduction](#introduction)
+- [What is EDGAR?](#EDGAR)
+- [Code Overview](#Code-Overview)
+- [Results](#results)
+	- [Interesting Asset Statistics](#Interesting-Asset-Statistics)
 
-# What is EDGAR
+# Introduction 
+Welcome to Umbrosus. Umbrosus is a framework for analyzing asset (loan) datasets from the EDGAR Securities and Exchange Commission database.
 
-# Overview of umbrosus code 
+# What is EDGAR?
 
-## Loans of interest
+# Code Overview
+
+# Results
+## Interesting Asset Statistics
 	Asset number 22037500: loan for 160k, spent on a Maserati Quattroporte
 	Asset number 22333820: repossessed Ford F-350 
 
