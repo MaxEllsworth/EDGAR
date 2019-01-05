@@ -5,6 +5,8 @@ import os
 import numpy
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
+import xml.etree.cElementTree as ET
+
 rcParams.update({'figure.autolayout': True})
 
 class bcolors:
@@ -27,7 +29,19 @@ class loan():
 		self.assetnumber = assetnumber
 		self.irp = irp
 
-def getAttributes(e):
+def splitXML(xmlFile):
+	bulk = xml.etree.ElementTree.parse(xmlFile).getroot()
+	ET.register_namespace("",ns0)
+	name = xmlFile.rstrip(".xml")
+	directory = xmlDirectory + name + "/"
+	prepDir(directory)
+
+	for asset in bulk:
+		tree = ElementTree(asset)
+		name = getAttributes(asset, attribute = "assetNumber")
+		tree.write(directory + str(assetNumber) + ".xml")
+
+def getAttributes(e, **kwargs):
 	stock = {}
 	for item in e._children:
 			key = item.tag
@@ -35,7 +49,10 @@ def getAttributes(e):
 			key = key.split('/')[-1]
 			key = key.split('assetdata')[-1]
 			stock[key] = item.text
-	return stock
+	if **kwargs:
+		return stock["attribute"]
+	else:
+		return stock
 
 def selectAttributes(stock, attributes):
 	values = []
@@ -94,7 +111,10 @@ def prepDir(directory):
 		if input((bcolors.WARNING + "Do you want to erase and recreate " + directory + "? [Y/n]: " + bcolors.ENDC)).split()[0].lower() == 'y':
 			os.remove(directory)
 			os.mkdir(directory)
-
+	else:
+		os.mkdir(directory)
+		print("Created " + str(directory))
+	# consider making this function accept user input for renaming the new directory
 
 def csvAllAssets():
 	for f in os.listdir(assetDirectory):
