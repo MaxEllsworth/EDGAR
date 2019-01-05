@@ -4,6 +4,8 @@ import xml.etree.ElementTree
 import os
 import numpy
 import matplotlib.pyplot as plt
+from matplotlib import rcParams
+rcParams.update({'figure.autolayout': True})
 
 class bcolors:
     HEADER = '\033[95m'
@@ -131,8 +133,7 @@ def fixNan(array):
 	array = numpy.nan_to_num(array)
 	return array
 
-
-def plotRegression(x, y):
+def plotRegression(x, y, title):
 	x_title = x
 	y_title = y
 
@@ -147,21 +148,42 @@ def plotRegression(x, y):
 
 	plt.plot(x,y, 'yo', x, fit_fn(x), '--k')
 	plt.xlim(0, x.max())
-
-	title = "Linear Regression 2"
+	print(fit_fn)
+	
 	
 	plt.suptitle(title)
 	plt.xlabel(x_title, fontsize=18)
 	plt.ylabel(y_title, fontsize=18)
 
 	plt.ylim(0, y.max())
-	plt.savefig(graphDirectory + title + ".png", aspect="auto")
+	plt.tight_layout()
+	plt.savefig(graphDirectory + title + ".png")
+
+
+def polyfit(x, y, degree):
+	x = numpy.genfromtxt(open(csvDirectory + x + ".csv", "rb"), delimiter=",")
+	y = numpy.genfromtxt(open(csvDirectory + y + ".csv", "rb"), delimiter=",")
+	    
+
+	x = fixNan(x)
+	y = fixNan(y)
+	
+	results = {}
+	coeffs = numpy.polyfit(x, y, degree)
+	results['polynomial'] = coeffs.tolist()
+	correlation = numpy.corrcoef(x, y)[0,1]
+	results['correlation'] = correlation
+	results['determination'] = correlation**2
+	return results
+
 
 
 if __name__ == "__main__":
-	x = "obligorCreditScore"
-	y = "originalLoanAmount"
-	plotRegression(x,y)
+	x = "originalLoanAmount"
+	y = "originalInterestRatePercentage"
+	title = "Linear Regression 2"
+	print(polyfit(x, y, 1))
+	plotRegression(x,y, title)
 
 '''
 	maxLoanAmountAsset, maxLoanAmount = bulkMax("ally/", "repossessedProceedsAmount")
