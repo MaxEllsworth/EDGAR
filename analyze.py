@@ -6,6 +6,9 @@ import numpy
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import xml.etree.cElementTree as ET
+from config import *
+import shutil
+import subprocess 
 
 rcParams.update({'figure.autolayout': True})
 
@@ -31,15 +34,15 @@ class loan():
 
 def splitXML(xmlFile):
 	bulk = xml.etree.ElementTree.parse(xmlFile).getroot()
-	ET.register_namespace("",ns0)
-	name = xmlFile.rstrip(".xml")
+#	ET.register_namespace("",ns0)
+	name = xmlFile.split('/')[-1].rstrip(".xml")
 	directory = xmlDirectory + name + "/"
 	prepDir(directory)
-
 	for asset in bulk:
-		tree = ElementTree(asset)
+		tree = ET.ElementTree(asset)
+		#tree = ET(asset)
 		name = getAttributes(asset, attribute = "assetNumber")
-		tree.write(directory + str(assetNumber) + ".xml")
+		tree.write(directory + str(name) + ".xml")
 
 def getAttributes(e, **kwargs):
 	stock = {}
@@ -49,8 +52,8 @@ def getAttributes(e, **kwargs):
 			key = key.split('/')[-1]
 			key = key.split('assetdata')[-1]
 			stock[key] = item.text
-	if **kwargs:
-		return stock["attribute"]
+	if kwargs:
+		return stock[kwargs["attribute"]]
 	else:
 		return stock
 
@@ -105,14 +108,27 @@ def fixNames(directory):
 		f.close()
 		os.remove(directory + "/" + a)
 
+def mkdir(directory):
+	cwd = os.getcwd()
+	for d in [i for i in directory.split("/") if i != '']:
+		try:
+			os.mkdir(d)
+		except:
+			True
+		os.chdir(d)
+	os.chdir(cwd)
+
+
 def prepDir(directory):
 	if os.path.exists(directory):
 		print(directory + " exists ...")
-		if input((bcolors.WARNING + "Do you want to erase and recreate " + directory + "? [Y/n]: " + bcolors.ENDC)).split()[0].lower() == 'y':
-			os.remove(directory)
-			os.mkdir(directory)
+		message = str(bcolors.WARNING + "Do you want to erase and recreate " + directory + "? [Y/n]: " + bcolors.ENDC)
+		resp = raw_input(message)
+		if resp.split()[0].lower() == 'y':
+			shutil.rmtree(directory.split('/')[0])
+			mkdir(directory)
 	else:
-		os.mkdir(directory)
+		mkdir(directory)
 		print("Created " + str(directory))
 	# consider making this function accept user input for renaming the new directory
 
@@ -160,7 +176,7 @@ def plotRegression(x, y, title):
 	x = numpy.genfromtxt(open(csvDirectory + x + ".csv", "rb"), delimiter=",")
 	y = numpy.genfromtxt(open(csvDirectory + y + ".csv", "rb"), delimiter=",")
 
-	x = fixNan(x)
+ 	x = fixNan(x)
 	y = fixNan(y)
 
 	fit = numpy.polyfit(x,y,1)
@@ -180,7 +196,7 @@ def plotRegression(x, y, title):
 	plt.savefig(graphDirectory + title + ".png")
 
 
-def polyfit(x, y, degree):
+def r_squared(x, y, degree):
 	x = numpy.genfromtxt(open(csvDirectory + x + ".csv", "rb"), delimiter=",")
 	y = numpy.genfromtxt(open(csvDirectory + y + ".csv", "rb"), delimiter=",")
 	    
@@ -196,15 +212,23 @@ def polyfit(x, y, degree):
 	results['determination'] = correlation**2
 	return results
 
+def downloadAssetXML(url):
+	wget = url.split('/'[-1])
+	name = url.split('/'[-1]).rstrip('.xml')
+	directory = xmlDirectory + name + "/"
+	subprocess.Popen(url)
+	shutil.move(wget, directory)
 
 
 if __name__ == "__main__":
+	splitXML("ex102mar2018aart201811.xml")
+'''
 	x = "originalLoanAmount"
 	y = "originalInterestRatePercentage"
 	title = "Linear Regression 2"
 	print(polyfit(x, y, 1))
 	plotRegression(x,y, title)
-
+'''
 '''
 	maxLoanAmountAsset, maxLoanAmount = bulkMax("ally/", "repossessedProceedsAmount")
 	print(maxLoanAmountAsset)
