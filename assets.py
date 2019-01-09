@@ -12,7 +12,7 @@ class res():
 
 class Monthly_Sheet():
 	def __init__(self, 
-				 resource = False, 
+				 ID = False, 
 				 month = False,
 				 tree = False):
 		self.resource = resource
@@ -21,8 +21,11 @@ class Monthly_Sheet():
 
 
 	def import(self, resource):
-		if resource.web == "local":
+		True
 
+
+	def save(true):
+		True
 
 
 

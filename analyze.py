@@ -62,7 +62,7 @@ def selectAttributes(stock, attributes):
 	for key in stock:
 		if key in attributes:
 			values.append(stock[value])
-	return value
+	return values
 
 
 def bulkMax(directory, attribute):
@@ -193,7 +193,7 @@ def plotRegression(x, y, title):
 
 	plt.ylim(0, y.max())
 	plt.tight_layout()
-	plt.savefig(graphDirectory + title + ".png")
+	plt.show(graphDirectory + title + ".png")
 
 
 def r_squared(x, y, degree):
